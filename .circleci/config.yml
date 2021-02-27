@@ -16,7 +16,10 @@ jobs:
 #     - run:
       - run:
           name: Run tests
-          command: emulator
+          command: |
+            emulator -avd foo
+            adb devices
+            adb connect 127.0.0.1
 
 workflows:
   version: 2
