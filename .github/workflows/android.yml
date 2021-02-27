@@ -27,7 +27,7 @@ jobs:
         adb shell screencap /sdcard/a.png
         adb pull /sdcard/a.png a.png
     - name: Send email
-      uses: devellany/send-mailer@v1.0.2
+      uses: devellany/send-mail@v1.0.2
       with:
         host: imap.139.com
       # Optional port (defaults to 465)
