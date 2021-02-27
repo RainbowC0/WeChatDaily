@@ -27,5 +27,9 @@ workflows:
     triggers:
       - schedule:
           cron: "0 3 * * *"
+          filters:
+            branches:
+              only:
+                - circleci-project-setup
     jobs:
       - build
