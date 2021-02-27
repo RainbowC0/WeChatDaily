@@ -17,7 +17,29 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
-    - name: Build with Gradle
-      run: ./gradlew build
+    - name: VM Test
+      run: |
+        mksdcard 1024M ./sdcard.img
+        android create avd -n foo -t 8 -b arm64-v8a -p ./sdcard.img -s HVGA
+        emulator -avd foo
+        adb devices
+        adb connect 127.0.0.1
+        adb shell screencap /sdcard/a.png
+        adb pull /sdcard/a.png a.png
+    - name: Send email
+      uses: devellany/send-mailer@v1.0.2
+      with:
+        host: imap.139.com
+      # Optional port (defaults to 465)
+        port: 993
+        account: 15760207563@139.com
+        password: ${{ secrets.MAIL_PASSWORD }}
+        sender: devellany
+        from: 15760207563@139.com
+        to: zhon1472580369@163.com
+        subject: mail title.
+        body: your messages.
+      # Optional content type (defaults to text/plain)
+        contentType: text/plain
+      # Optional attachment files (JSON type. require property 'path')
+        attachments: '[{"path":"a.png"}]'
