@@ -46,7 +46,7 @@ jobs:
           to: 15760207563@139.com
 
 workflows:
-  version: 2
+  version: 2.1
   commit-workflow:
     jobs:
       - build
