@@ -19,16 +19,24 @@ jobs:
       - run:
           name: Run tests
           command: |
-            #mksdcard 1024M ./sdcard.img
-            avdmanager list
-            #android create avd -n foo -t 8 -b arm64-v8a -p ./sdcard.img -s HVGA
-            emulator -avd android-25
-            adb devices
-            adb connect 127.0.0.1
+            sdkmanager "system-images;android-25;google_apis;armeabi-v7a"
+            echo "no" | avdmanager create avd -n test -k "system-images;android-25;google_apis;armeabi-v7a"
+
+      - run:
+          name: Launch emulator
+          command: emulator64-arm -avd test -noaudio -no-boot-anim -no-window -accel on
+          background: true
+
+      - run:
+          name: Wait for launch
+          command: |
+            circle-android wait-for-boot
+            sleep 5
             adb shell screencap /sdcard/a.png
             adb pull /sdcard/a.png a.png
             #echo `base64 -w 0 a.png` >> a.txt
             ADATA=`base64 -w 0 a.png`
+
       - mailer-orb/mail:
           body: $ADATA
           from: admin@ghosh.pro
