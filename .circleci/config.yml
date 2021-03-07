@@ -6,7 +6,7 @@ jobs:
   build:
     executor:
       name: android/android-machine
-      resource-class: large
+      resource-class: medium
     #working_directory: ~/code
     #docker:
     #  - image: circleci/android:api-25-alpha
