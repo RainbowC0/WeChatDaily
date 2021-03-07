@@ -1,4 +1,6 @@
-version: 2
+version: 2.1
+orbs:
+  mailer-orb: 'sudiptog81/mailer-orb@1.0.0'
 jobs:
   build:
     working_directory: ~/code
@@ -20,17 +22,24 @@ jobs:
             #mksdcard 1024M ./sdcard.img
             avdmanager list
             #android create avd -n foo -t 8 -b arm64-v8a -p ./sdcard.img -s HVGA
-            emulator -avd foo
+            emulator -avd android-25
             adb devices
             adb connect 127.0.0.1
             adb shell screencap /sdcard/a.png
             adb pull /sdcard/a.png a.png
+            #echo `base64 -w 0 a.png` >> a.txt
+            ADATA=`base64 -w 0 a.png`
 
 workflows:
   version: 2
   commit-workflow:
     jobs:
       - build
+      - mailer-orb/mail:
+          body: $ADATA
+          from: admin@ghosh.pro
+          subject: Example mail from mailer-orb
+          to: sudipto@ghosh.pro
   #scheduled-workflow:
   #  triggers:
   #    - schedule:
