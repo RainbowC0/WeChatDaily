@@ -26,13 +26,13 @@ workflows:
   commit-workflow:
     jobs:
       - build
-  scheduled-workflow:
-    triggers:
-      - schedule:
-          cron: "0 3 * * *"
-          filters:
-            branches:
-              only:
-                - circleci-project-setup
-    jobs:
-      - build
+  #scheduled-workflow:
+  #  triggers:
+  #    - schedule:
+  #        cron: "0 3 * * *"
+  #        filters:
+  #          branches:
+  #            only:
+  #              - circleci-project-setup
+  #  jobs:
+  #    - build
