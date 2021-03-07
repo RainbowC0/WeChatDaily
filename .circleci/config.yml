@@ -19,7 +19,7 @@ jobs:
       - run:
           name: Run tests
           command: |
-            sdkmanager "system-images;android-25;google_apis;armeabi-v7a" -y
+            echo "y" | sdkmanager "system-images;android-25;google_apis;armeabi-v7a"
             echo "no" | avdmanager create avd -n test -k "system-images;android-25;google_apis;armeabi-v7a"
 
       - run:
