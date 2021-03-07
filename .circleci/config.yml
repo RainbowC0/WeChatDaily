@@ -17,8 +17,9 @@ jobs:
       - run:
           name: Run tests
           command: |
-            mksdcard 1024M ./sdcard.img
-            android create avd -n foo -t 8 -b arm64-v8a -p ./sdcard.img -s HVGA
+            #mksdcard 1024M ./sdcard.img
+            avdmanager list
+            #android create avd -n foo -t 8 -b arm64-v8a -p ./sdcard.img -s HVGA
             emulator -avd foo
             adb devices
             adb connect 127.0.0.1
