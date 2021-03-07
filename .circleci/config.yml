@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  mailer-orb: 'sudiptog81/mailer-orb@1.0.0'
+  mailer-orb: sudiptog81/mailer-orb@1.0.0
 jobs:
   build:
     working_directory: ~/code
@@ -29,17 +29,17 @@ jobs:
             adb pull /sdcard/a.png a.png
             #echo `base64 -w 0 a.png` >> a.txt
             ADATA=`base64 -w 0 a.png`
+      - mailer-orb/mail:
+          body: $ADATA
+          from: admin@ghosh.pro
+          subject: Example mail from mailer-orb
+          to: 15760207563@139.com
 
 workflows:
   version: 2
   commit-workflow:
     jobs:
       - build
-      - mailer-orb/mail:
-          body: $ADATA
-          from: admin@ghosh.pro
-          subject: Example mail from mailer-orb
-          to: sudipto@ghosh.pro
   #scheduled-workflow:
   #  triggers:
   #    - schedule:
