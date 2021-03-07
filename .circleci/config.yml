@@ -24,7 +24,9 @@ jobs:
 
       - run:
           name: Launch emulator
-          command: export LD_LIBRARY_PATH=${ANDROID_HOME}/emulator/lib64:${ANDROID_HOME}/emulator/lib64/qt/lib && emulator-headless -avd test -noaudio -no-boot-anim -accel on
+          command: |
+            #export LD_LIBRARY_PATH=${ANDROID_HOME}/emulator/lib64:${ANDROID_HOME}/emulator/lib64/qt/lib
+            emulator-headless -avd test -noaudio -no-boot-anim -accel on
           background: true
 
       - run:
