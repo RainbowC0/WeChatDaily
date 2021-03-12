@@ -17,7 +17,7 @@ jobs:
           name: Run Emulator
           command: |
             SDK_IMG='system-images;android-22;google_apis;armeabi-v7a'
-            sdkmanager $SDK_IMG
+            echo 'y'|sdkmanager $SDK_IMG
             avdmanager --verbose create avd -n test -k $SDK_IMG
             emulator-headless -avd test -delay-adb -verbose -no-window -no-snapshot -noaudio -no-boot-anim
       - run:
