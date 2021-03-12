@@ -1,11 +1,11 @@
 version: 2.1
-orbs:
-  mailer-orb: sudiptog81/mailer-orb@1.0.0
+#orbs:
+ # mailer-orb: sudiptog81/mailer-orb@1.0.0
 jobs:
   build:
     working_directory: ~/code
     docker:
-      - image: circleci/android:api-30
+      - image: arm64v8/ubuntu:20.10
         auth:
           username: mydockerhub-user
           password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
@@ -16,29 +16,32 @@ jobs:
       - run:
           name: Run Emulator
           command: |
-            SDK_IMG='system-images;android-22;google_apis;armeabi-v7a'
-            yes|sdkmanager --licenses
-            echo 'y'|sdkmanager $SDK_IMG
-            yes|avdmanager --verbose create avd -n test -k $SDK_IMG
-            emulator-headless -avd test -delay-adb -verbose -no-window -no-snapshot -noaudio -no-boot-anim
-      - run:
-          name: Wait for launch
-          command: |
-            adb devices
-            circle-android wait-for-boot
-            adb shell settings put global window_animation_scale 0.0
-            adb shell settings put global transition_animation_scale 0.0
-            adb shell settings put global animator_duration_scale 0.0
-            adb shell screencap /sdcard/a.png
-            adb pull /sdcard/a.png a.png
-            #echo `base64 -w 0 a.png` >> a.txt
-            ADATA=`base64 -w 0 a.png`
+            echo 'Hello world'
+            arch
+            apt-cache policy anbox
+      #       SDK_IMG='system-images;android-22;google_apis;armeabi-v7a'
+      #       yes|sdkmanager --licenses
+      #       echo 'y'|sdkmanager $SDK_IMG
+      #       yes|avdmanager --verbose create avd -n test -k $SDK_IMG
+      #       emulator-headless -avd test -delay-adb -verbose -no-window -no-snapshot -noaudio -no-boot-anim
+      # - run:
+      #     name: Wait for launch
+      #     command: |
+      #       adb devices
+      #       circle-android wait-for-boot
+      #       adb shell settings put global window_animation_scale 0.0
+      #       adb shell settings put global transition_animation_scale 0.0
+      #       adb shell settings put global animator_duration_scale 0.0
+      #       adb shell screencap /sdcard/a.png
+      #       adb pull /sdcard/a.png a.png
+      #       #echo `base64 -w 0 a.png` >> a.txt
+      #       ADATA=`base64 -w 0 a.png`
 
-      - mailer-orb/mail:
-          body: $ADATA
-          from: admin@ghosh.pro
-          subject: Example mail from mailer-orb
-          to: 15760207563@139.com
+      # - mailer-orb/mail:
+      #     body: $ADATA
+      #     from: admin@ghosh.pro
+      #     subject: Example mail from mailer-orb
+      #     to: 15760207563@139.com
 
 workflows:
   version: 2.1
