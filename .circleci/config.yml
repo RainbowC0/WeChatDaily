@@ -5,7 +5,7 @@ jobs:
   build:
     working_directory: ~/code
     docker:
-      - image: aind/aind:latest
+      - image: aind/aind:0.0.3
         auth:
           username: mydockerhub-user
           password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
@@ -16,11 +16,12 @@ jobs:
       - run:
           name: Run Emulator
           command: |
+            arch
             echo 'Hello world'
-            sudo modprobe ashmem_linux
-            sudo modprobe binder_linux
-            ./usr/share/anbox/anbox-bridge.sh start
-            sudo anbox container-manager --daemon --privileged --data-path=/var/lib/anbox
+            #sudo modprobe ashmem_linux
+            #sudo modprobe binder_linux
+            #./usr/share/anbox/anbox-bridge.sh start
+            #sudo anbox container-manager --daemon --privileged --data-path=/var/lib/anbox
             anbox wait-ready
             anbox session-manager
             adb devices
