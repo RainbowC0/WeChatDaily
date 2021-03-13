@@ -17,7 +17,12 @@ jobs:
           name: Run Emulator
           command: |
             echo 'Hello world'
-            systemctl status anbox-container-manager
+            sudo modprobe ashmem_linux
+            sudo modprobe binder_linux
+            ./usr/share/anbox/anbox-bridge.sh start
+            sudo anbox container-manager --daemon --privileged --data-path=/var/lib/anbox
+            anbox wait-ready
+            anbox session-manager
             adb devices
       #       SDK_IMG='system-images;android-22;google_apis;armeabi-v7a'
       #       yes|sdkmanager --licenses
