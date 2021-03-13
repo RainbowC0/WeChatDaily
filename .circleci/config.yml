@@ -5,7 +5,7 @@ jobs:
   build:
     working_directory: ~/code
     docker:
-      - image: arm64v8/ubuntu:20.10
+      - image: aind/aind:latest
         auth:
           username: mydockerhub-user
           password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
@@ -17,8 +17,8 @@ jobs:
           name: Run Emulator
           command: |
             echo 'Hello world'
-            arch
-            apt-cache policy anbox
+            systemctl status anbox-container-manager
+            adb devices
       #       SDK_IMG='system-images;android-22;google_apis;armeabi-v7a'
       #       yes|sdkmanager --licenses
       #       echo 'y'|sdkmanager $SDK_IMG
