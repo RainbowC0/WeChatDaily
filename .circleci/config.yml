@@ -8,9 +8,7 @@ jobs:
     resource_class: arm.medium
     steps:
       - run: |
-          sudo add-apt-repository ppa:morphis/anbox-support
-          sudo apt update
-          sudo apt-get install -y anbox-modules-dkms anbox adb
+          sudo apt-get install -y anbox adb
           export DISPLAY=:0
           anbox.appmgr
           adb devices
