@@ -12,6 +12,7 @@ jobs:
           sudo apt-get install -y anbox adb dbus
           sudo apt-get clean
           export DISPLAY=:0
+          sudo dbus-daemon --system --fork
           anbox launch --package=org.anbox.appmgr --component=org.anbox.appmgr.AppViewActivity
           adb devices
 
