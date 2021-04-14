@@ -8,6 +8,7 @@ jobs:
     resource_class: arm.medium
     steps:
       - run: |
+          sudo apt-get upgrade
           sudo apt-get install -y anbox adb
           export DISPLAY=:0
           anbox.appmgr
